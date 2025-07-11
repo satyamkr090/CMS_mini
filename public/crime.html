@@ -1,0 +1,117 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <title>Crime Records Search</title>
+  <style>
+    body {
+      font-family: Arial, sans-serif;
+      background-color: #f3f4f6;
+      padding: 20px;
+    }
+
+    h1 {
+      text-align: center;
+      color: #333;
+    }
+
+    form {
+      text-align: center;
+      margin-bottom: 20px;
+    }
+
+    input[type="text"] {
+      padding: 10px;
+      width: 300px;
+      border: 1px solid #ccc;
+      border-radius: 6px;
+    }
+
+    button {
+      padding: 10px 20px;
+      background-color: #4f46e5;
+      color: white;
+      border: none;
+      border-radius: 6px;
+      cursor: pointer;
+    }
+
+    button:hover {
+      background-color: #4338ca;
+    }
+
+    #searchResults {
+      max-width: 700px;
+      margin: 0 auto;
+    }
+
+    .result-card {
+      background-color: white;
+      padding: 15px;
+      margin: 10px 0;
+      border: 1px solid #ddd;
+      border-radius: 8px;
+      box-shadow: 0 2px 4px rgba(0, 0, 0, 0.05);
+    }
+
+    .result-card h3 {
+      margin: 0 0 10px 0;
+      color: #2c3e50;
+    }
+
+    .result-card p {
+      margin: 5px 0;
+    }
+  </style>
+</head>
+<body>
+  <h1>Search Crime Records</h1>
+  <form id="searchForm">
+    <input type="text" id="searchInput" placeholder="Enter Criminal ID or Name" />
+    <button type="submit">Search</button>
+  </form>
+
+  <div id="searchResults"></div>
+
+  <script>
+    document.getElementById('searchForm').addEventListener('submit', function (e) {
+      e.preventDefault();
+      const query = document.getElementById('searchInput').value.trim();
+
+      if (!query) {
+        alert("Please enter a criminal ID or name.");
+        return;
+      }
+
+      // Updated the query parameter from 'q' to 'query' to match backend expectation
+      fetch(`/crime/search?query=${encodeURIComponent(query)}`)
+        .then(res => res.json())
+        .then(data => {
+          const resultDiv = document.getElementById('searchResults');
+          resultDiv.innerHTML = '';
+
+          if (data.error || data.length === 0) {
+            resultDiv.innerHTML = `<p>No records found.</p>`;
+          } else {
+            data.forEach(record => {
+              const el = document.createElement('div');
+              el.className = 'result-card';
+              el.innerHTML = `
+                <h3>Criminal: ${record.criminal_name}</h3>
+                <p><strong>ID:</strong> ${record.criminal_id}</p>
+                <p><strong>Crime:</strong> ${record.crime}</p>
+                <p><strong>Crime Date:</strong> ${record.crime_date}</p>
+                
+              `;
+              resultDiv.appendChild(el);
+            });
+          }
+        })
+        .catch(error => {
+          console.error("Error fetching data:", error);
+          document.getElementById('searchResults').innerHTML = 'Failed to load data.';
+        });
+    });
+  </script>
+</body>
+</html>

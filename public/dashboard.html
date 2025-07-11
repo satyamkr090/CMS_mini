@@ -1,0 +1,109 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+  <title>Dashboard</title>
+  <link rel="stylesheet" href="styles.css" />
+  <style>
+    /* Page Background */
+    body {
+      margin: 0;
+      font-family: Arial, sans-serif;
+      background-image: url('https://images.unsplash.com/photo-1597262975002-c5c3b14bbd62?fit=crop&w=1500&q=80'); /* Crime/Law-themed background */
+      background-size: cover;
+      background-position: center;
+      background-repeat: no-repeat;
+      min-height: 100vh;
+      color: #fff;
+    }
+
+    .container {
+      text-align: center;
+      background-color: rgba(0, 0, 0, 0.6); /* Overlay for readability */
+      padding: 30px;
+      border-radius: 10px;
+      margin: 20px;
+    }
+
+    h1 {
+      color: #fff;
+    }
+
+    .dashboard-container {
+      display: grid;
+      grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+      gap: 30px;
+      padding: 30px;
+    }
+
+    .card {
+      background-color: rgba(86, 219, 243, 0.638);
+      border-radius: 15px;
+      padding: 25px;
+      text-align: center;
+      backdrop-filter: blur(8px);
+      color: #fff;
+      box-shadow: 0 8px 15px rgba(0, 0, 0, 0.3);
+      transition: transform 0.2s, background-color 0.2s;
+      cursor: pointer;
+    }
+
+    .card:hover {
+      background-color: rgba(255, 255, 255, 0.2);
+      transform: scale(1.05);
+    }
+
+    .card h3 {
+      margin-bottom: 20px;
+    }
+
+    .card button {
+      padding: 10px 20px;
+      background-color: #3498db;
+      color: white;
+      border: none;
+      border-radius: 5px;
+      cursor: pointer;
+      font-weight: bold;
+    }
+
+    .card button:hover {
+      background-color: #2980b9;
+    }
+  </style>
+</head>
+<body>
+  <div class="container">
+    <h1>CRIMINAL MANAGEMENT SYSTEM</h1>
+
+    <div class="dashboard-container">
+      <!-- Crime Card -->
+      <div class="card" onclick="window.location.href='crime.html'">
+        <h3>CRIME RECORDS</h3>
+        <button>Go to Crime Page</button>
+      </div>
+
+      <!-- Criminal Card -->
+      <div class="card" onclick="window.location.href='criminal.html'">
+        <h3>CRIMINALS</h3>
+        <button>Go to Criminal Page</button>
+      </div>
+
+      <!-- Judge Card -->
+      <div class="card" onclick="window.location.href='judge.html'">
+        <h3>JUDGES</h3>
+        <button>Go to Judge Page</button>
+      </div>
+
+      <!-- Victim Card -->
+      <div class="card" onclick="window.location.href='victim.html'">
+        <h3>VICTIMS</h3>
+        <button>Go to Victim Page</button>
+      </div>
+    </div>
+  </div>
+
+  <script src="dashboard.js"></script>
+</body>
+</html>
